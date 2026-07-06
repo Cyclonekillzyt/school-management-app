@@ -48,7 +48,6 @@ export type DashboardWorkload = {
   test_completion_percentage: number | null;
   exam_score_completion_percentage: number | null;
 
-  // 🔥 NEW FIELD FROM VIEW
   grand_total_completion_percentage: number | null;
 };
 
@@ -59,6 +58,8 @@ export type Assignment = {
   academic_year: string;
 };
 
+
+
 export type DashboardState = {
   performance: TeacherPerformance | null;
   workload: Workload[];
@@ -68,6 +69,8 @@ export type DashboardState = {
   teacherRanking: TeacherPerformanceUi[];
   selectedAssignment: Assignment | null;
   setSelectedAssignment: (assignment: Assignment | null) => void;
+  activeGrade: string | null;
+  setActiveGrade: (grade: string) => void;
 
   fetchDashboard: (teacherId: string) => Promise<void>;
   initializeDashboard: () => Promise<void>;

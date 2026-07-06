@@ -2,7 +2,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 
 import DashboardScreen from "@/screens/dashboard/DashboardScreen";
-import ClassesScreen from "@/screens/assessment/ClassesScreen";
+import ClassesNavigator from "@/navigation/ClassesNavigator";
 import RankingsScreen from "@/screens/rankings/RankingsScreen";
 import SettingsScreen from "@/screens/settings/SettingsScreens";
 
@@ -69,7 +69,7 @@ export default function Navbar() {
           name="Home"
           component={user?.role === "admin" ? AdminHomeScreen : DashboardScreen}
         />
-        <Tab.Screen name="Classes" component={ClassesScreen} />
+        <Tab.Screen name="Classes" component={ClassesNavigator} />
         <Tab.Screen name="Rankings" component={RankingsScreen} />
         <Tab.Screen name="Settings" component={SettingsScreen} />
       </Tab.Navigator>

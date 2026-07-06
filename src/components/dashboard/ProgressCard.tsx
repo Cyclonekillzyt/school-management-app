@@ -17,7 +17,7 @@ export default function ProgressCard() {
         item.assignment_id === selectedAssignment.assignment_id,
     ) || null;
 
-  // 🔥 GRAND TOTAL NOW COMES DIRECTLY FROM DB
+
   const totalCompleted = selected?.grand_total_completion_percentage ?? 0;
 
   const items = selected
@@ -37,16 +37,7 @@ export default function ProgressCard() {
           value: selected.projectwork_completion_percentage ?? 0,
           color: theme.chart3,
         },
-        {
-          label: "Test",
-          value: selected.test_completion_percentage ?? 0,
-          color: theme.primary,
-        },
-        {
-          label: "Exam",
-          value: selected.exam_score_completion_percentage ?? 0,
-          color: theme.chart2,
-        },
+      
       ]
     : [];
 

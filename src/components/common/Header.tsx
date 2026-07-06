@@ -2,9 +2,9 @@ import { View, Text, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useTheme } from "@/hooks/useTheme";
 import { useAuthStore } from "@/store/authStore";
-import Avatar from "../common/Avatar";
+import Avatar from "./Avatar";
 
-export default function DashboardHeader() {
+export default function Header() {
   const theme = useTheme();
   const user = useAuthStore((s) => s.user);
   return (
