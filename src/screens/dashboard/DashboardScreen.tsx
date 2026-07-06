@@ -1,6 +1,6 @@
 import { View } from "react-native";
 import { useTheme } from "@/hooks/useTheme";
-import DashboardHeader from "@/components/dashboard/DashboardHeader";
+import DashboardHeader from "@/components/common/Header";
 import GreetingCard from "@/components/dashboard/GreetingCard";
 import ProgressCard from "@/components/dashboard/ProgressCard";
 import TeachersSection from "@/components/dashboard/TeacherSection";
@@ -15,11 +15,11 @@ export default function DashboardScreen() {
     initializeDashboard();
   }, []);
   return (
-    <View style={{ flex: 1, backgroundColor: theme.background}}>
+    <View style={{ flex: 1, backgroundColor: theme.background }}>
       <DashboardHeader />
-      <GreetingCard/>
-      <ProgressCard/>
-      <TeachersSection/>
+      <GreetingCard />
+      <ProgressCard />
+      <TeachersSection />
     </View>
   );
 }

@@ -5,9 +5,10 @@ import { useNavigation } from "@react-navigation/native";
 type Props = {
   name: string;
   size?: number;
+  curve?: number
 };
 
-export default function Avatar({ name, size = 40 }: Props) {
+export default function Avatar({ name, size = 40, curve = size/ 2 }: Props) {
   const navigation = useNavigation<any>();
 
   const bg = getAvatarColor(name);
@@ -25,7 +26,7 @@ export default function Avatar({ name, size = 40 }: Props) {
           {
             width: size,
             height: size,
-            borderRadius: size / 2,
+            borderRadius: curve,
             backgroundColor: bg,
           },
         ]}
