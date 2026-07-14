@@ -1,11 +1,13 @@
 import { View, Text, Pressable } from "react-native";
+import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 
 type AssessmentHeaderProps = {
   onBack: () => void;
+  download?: () => void;
   t: any;
 };
 
-export function AssessmentHeader({ onBack, t }: AssessmentHeaderProps) {
+export function AssessmentHeader({ onBack, download, t }: AssessmentHeaderProps) {
   return (
     <View
       style={{
@@ -14,13 +16,14 @@ export function AssessmentHeader({ onBack, t }: AssessmentHeaderProps) {
         borderColor: t.border,
       }}
     >
-      <Text style={{ fontSize: 18, fontWeight: "700", color: t.foreground }}>
-        Assessment Entry
-      </Text>
-
-      <Pressable onPress={onBack} style={{ marginTop: 6 }}>
-        <Text style={{ color: t.mutedForeground }}>← Back</Text>
-      </Pressable>
+      <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+        <Pressable onPress={onBack}>
+          <Ionicons name="chevron-back" size={26} color={t.foreground} />
+        </Pressable>
+        <Pressable onPress={download}>
+          <MaterialCommunityIcons name="file-download" size={26} color={t.foreground} />
+        </Pressable>
+      </View>
     </View>
   );
 }

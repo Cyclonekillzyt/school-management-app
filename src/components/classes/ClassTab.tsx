@@ -1,16 +1,14 @@
 import { View, Text, Pressable } from "react-native";
-import { useState } from "react";
 import { useDashboardStore } from "@/store/dashboardStore";
 import { useTheme } from "@/hooks/useTheme";
 
 export default function ClassTab() {
   const items = useDashboardStore((s) => s.dashboardWorkload);
   const theme = useTheme();
-
   const classList = items.map((item) => item.class_name);
   const activeGrade = useDashboardStore((s) => s.activeGrade);
   const setActiveGrade = useDashboardStore((s) => s.setActiveGrade);
-
+  const grade  = useDashboardStore((s) => s.activeGrade);
   return (
     <View
       style={{
@@ -30,6 +28,7 @@ export default function ClassTab() {
         }}
       >
         {classList.map((g) => (
+          
           <Pressable
             key={g}
             onPress={() => setActiveGrade(g)}
