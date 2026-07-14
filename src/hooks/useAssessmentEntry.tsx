@@ -51,6 +51,16 @@ export default function useAssessmentEntry({
     }
   };
 
+  const handleExportNavigation = () =>{
+     if (hasUnsavedChanges) {
+       setShowWarningModal(true);
+     } else {
+       navigation.navigate("AssessmentExport", {
+         assignment: useAssessmentStore.getState().selectedAssignment,
+       });
+     }
+  }
+
   return {
     inputStatus,
     setInputStatus,
@@ -61,5 +71,6 @@ export default function useAssessmentEntry({
 
     getValue,
     handleBackPress,
+    handleExportNavigation,
   };
 }

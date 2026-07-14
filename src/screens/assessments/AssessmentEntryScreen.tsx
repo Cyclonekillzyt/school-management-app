@@ -40,12 +40,13 @@ export default function AssessmentEntryScreen() {
     setShowWarningModal,
     getValue,
     handleBackPress,
-  } = useAssessmentEntry(
-    {selectedAssessment,
+    handleExportNavigation,
+  } = useAssessmentEntry({
+    selectedAssessment,
     assignmentFromNav,
     navigation,
-    hasUnsavedChanges,}
-  );
+    hasUnsavedChanges,
+  });
   
   if (loading && students.length === 0) {
     return <LoadingAssessment />;
@@ -53,7 +54,7 @@ export default function AssessmentEntryScreen() {
 
   return (
     <View style={{ flex: 1, backgroundColor: t.background }}>
-      <AssessmentHeader onBack={handleBackPress} t={t} />
+      <AssessmentHeader onBack={handleBackPress} download={handleExportNavigation} t={t} />
 
       {selectedAssignment && (
         <>

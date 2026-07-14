@@ -8,6 +8,7 @@ export default function TeachersSection() {
   const theme = useTheme();
 
   const uiPerformance = useDashboardStore((s) => s.teacherRanking);
+  console.log(uiPerformance, "uiPerformance");
 
   const teachers = uiPerformance.map((t) => ({
     name: t.teacher_name,

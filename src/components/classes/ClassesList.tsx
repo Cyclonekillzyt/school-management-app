@@ -13,6 +13,7 @@ export default function ClassesList() {
   const activeGrade = useDashboardStore((s) => s.activeGrade);
   const assignment = useDashboardStore((s) => s.assignments);
 
+  const filteredItems = items.filter((item) => item.class_name === activeGrade);
   return (
     <View
       style={{
@@ -22,7 +23,7 @@ export default function ClassesList() {
         paddingHorizontal: 20,
       }}
     >
-      {items.map((s) => (
+      {filteredItems.map((s) => (
         <Pressable
           key={s.assignment_id}
           onPress={() => {
@@ -31,7 +32,7 @@ export default function ClassesList() {
               class_name: s.class_name,
               subject_name: s.subject_name,
               academic_year: s.academic_year_name,
-              teacher_id: "", // optional if needed later
+              teacher_id: "", 
               class_id: "",
               subject_id: "",
               academic_year_id: "",

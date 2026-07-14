@@ -16,9 +16,6 @@ type AssessmentDraftWithMeta = AssessmentDraft & {
 };
 
 export const useAssessmentStore = create<AssessmentState>((set, get) => ({
-  // =====================
-  // STATE
-  // =====================
   loading: false,
   saving: false,
 
@@ -33,9 +30,6 @@ export const useAssessmentStore = create<AssessmentState>((set, get) => ({
 
   hasUnsavedChanges: false,
 
-  // =====================
-  // INIT
-  // =====================
   initializeAssessments: async () => {
     const user = useAuthStore.getState().user;
     if (!user?.id) return;
@@ -43,9 +37,6 @@ export const useAssessmentStore = create<AssessmentState>((set, get) => ({
     await get().loadAssignments();
   },
 
-  // =====================
-  // LOAD ASSIGNMENTS
-  // =====================
   loadAssignments: async (teacherId?: string) => {
     set({ loading: true });
 
@@ -77,9 +68,6 @@ export const useAssessmentStore = create<AssessmentState>((set, get) => ({
     }
   },
 
-  // =====================
-  // SELECT ASSIGNMENT
-  // =====================
   selectAssignment: async (assignment: TeacherAssignment) => {
     set({
       selectedAssignment: assignment,
@@ -92,9 +80,6 @@ export const useAssessmentStore = create<AssessmentState>((set, get) => ({
     await get().loadStudents(assignment.assignment_id);
   },
 
-  // =====================
-  // LOAD STUDENTS
-  // =====================
   loadStudents: async (assignmentId: string) => {
     try {
       const { data, error } = await supabase
@@ -115,16 +100,10 @@ export const useAssessmentStore = create<AssessmentState>((set, get) => ({
     }
   },
 
-  // =====================
-  // SET ASSESSMENT TAB
-  // =====================
   setSelectedAssessment: (assessment: AssessmentType) => {
     set({ selectedAssessment: assessment });
   },
 
-  // =====================
-  // UPDATE SCORE (OPTIMISTIC UI + DRAFTS)
-  // =====================
   updateScore: (studentId, assessment, value) => {
     const { students, drafts, selectedAssignment } = get();
 
@@ -150,6 +129,11 @@ export const useAssessmentStore = create<AssessmentState>((set, get) => ({
       | undefined;
 
     const updatedDraft: AssessmentDraftWithMeta = {
+      classwork: student.classwork,
+      groupwork: student.groupwork,
+      projectwork: student.projectwork,
+      test: student.test,
+      exam_score: student.exam_score,
       ...(existingDraft ?? {}),
       score_id: student.score_id ?? "",
       student_id: studentId,
@@ -170,9 +154,6 @@ export const useAssessmentStore = create<AssessmentState>((set, get) => ({
     });
   },
 
-  // =====================
-  // SAVE SCORES (UPSERT BATCH)
-  // =====================
   saveScores: async () => {
     const { drafts } = get();
 
