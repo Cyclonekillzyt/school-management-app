@@ -11,8 +11,10 @@ export default function DashboardScreen() {
   const theme = useTheme();
   const initializeDashboard = useDashboardStore((s) => s.initializeDashboard);
 
+  
   useEffect(() => {
     initializeDashboard();
+
   }, []);
   return (
     <View style={{ flex: 1, backgroundColor: theme.background }}>

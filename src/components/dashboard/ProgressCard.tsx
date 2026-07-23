@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import { useTheme } from "@/hooks/useTheme";
-import AssignmentDropdown from "@/components/dashboard/AssignmentDropdown";
+import AssignmentDropdown from "@/components/common/Dropdown";
 import ProgressRing from "./ProgressRing";
 import { useDashboardStore } from "@/store/dashboardStore";
 
@@ -16,7 +16,6 @@ export default function ProgressCard() {
         selectedAssignment &&
         item.assignment_id === selectedAssignment.assignment_id,
     ) || null;
-
 
   const totalCompleted = selected?.grand_total_completion_percentage ?? 0;
 
@@ -37,7 +36,6 @@ export default function ProgressCard() {
           value: selected.projectwork_completion_percentage ?? 0,
           color: theme.chart3,
         },
-      
       ]
     : [];
 
@@ -57,7 +55,7 @@ export default function ProgressCard() {
           My Progress
         </Text>
 
-        <AssignmentDropdown />
+        <AssignmentDropdown styles={DropdownStyles}/>
       </View>
 
       {/* CONTENT */}
@@ -118,6 +116,34 @@ export default function ProgressCard() {
     </View>
   );
 }
+
+const DropdownStyles = StyleSheet.create({
+  badge: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderRadius: 99,
+  },
+
+  badgeText: {
+    fontSize: 11,
+    fontWeight: "600",
+  },
+
+  dropdown: {
+    marginTop: 8,
+    borderWidth: 1,
+    borderRadius: 14,
+    overflow: "hidden",
+  },
+
+  option: {
+    paddingVertical: 12,
+    paddingHorizontal: 14,
+  },
+});
 
 const styles = StyleSheet.create({
   card: {
