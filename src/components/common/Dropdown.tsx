@@ -4,14 +4,18 @@ import { Ionicons } from "@expo/vector-icons";
 import { useTheme } from "@/hooks/useTheme";
 import { useDashboardStore } from "@/store/dashboardStore";
 
-export default function AssignmentDropdown() {
-  const theme = useTheme();
+type props = {
+  styles: any;
+};
 
+export default function AssignmentDropdown({styles}: props) {
+  const theme = useTheme();
   const assignments = useDashboardStore((s) => s.assignments);
   const selectedAssignment = useDashboardStore((s) => s.selectedAssignment);
   const setSelectedAssignment = useDashboardStore(
     (s) => s.setSelectedAssignment,
   );
+
 
   const [open, setOpen] = useState(false);
 
@@ -74,30 +78,4 @@ export default function AssignmentDropdown() {
     </View>
   );
 }
-const styles = StyleSheet.create({
-  badge: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 6,
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 99,
-  },
 
-  badgeText: {
-    fontSize: 11,
-    fontWeight: "600",
-  },
-
-  dropdown: {
-    marginTop: 8,
-    borderWidth: 1,
-    borderRadius: 14,
-    overflow: "hidden",
-  },
-
-  option: {
-    paddingVertical: 12,
-    paddingHorizontal: 14,
-  },
-});

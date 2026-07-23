@@ -54,6 +54,7 @@ export type DashboardWorkload = {
 export type Assignment = {
   assignment_id: string;
   class_name: string;
+  class_id: string;
   subject_name: string;
   academic_year: string;
 };

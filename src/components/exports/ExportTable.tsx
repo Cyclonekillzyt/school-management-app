@@ -56,7 +56,6 @@ export default function ExportTable({ students, t }: any) {
           ))}
         </View>
 
-        {/* Rows */}
 
         {students.map((student: any) => (
           <View

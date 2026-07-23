@@ -3,6 +3,7 @@ import { supabase } from "@/lib/supabase";
 import { showToast } from "@/utils/toast";
 import { DashboardState } from "@/types/dashboard.types";
 import { useAuthStore } from "./authStore";
+import { useRankingsStore } from "./rankingsStore";
 
 export const useDashboardStore = create<DashboardState>((set) => ({
   performance: null,
@@ -19,10 +20,11 @@ export const useDashboardStore = create<DashboardState>((set) => ({
 
   initializeDashboard: async () => {
     const user = useAuthStore.getState().user;
-
+     
     if (!user?.id) return;
 
     await useDashboardStore.getState().fetchDashboard(user.id);
+    await useRankingsStore.getState().fetchTeacherRankings({teacherId: user.id});
   },
 
   setActiveGrade: (grade) => set({ activeGrade: grade }),
