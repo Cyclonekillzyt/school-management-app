@@ -65,7 +65,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
         email: session.user.email ?? null,
         role: profile?.role ?? null,
         userName: profile?.full_name ?? null,
-        gender: profile?.gender ?? null
+        gender: profile?.gender ?? null,
       },
       authLoading: false,
     });
@@ -73,7 +73,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
 
   signIn: async (email, password, rememberMe) => {
     set({ signInLoading: true });
-    console.log("remeberMe",rememberMe);
+    console.log("remeberMe", rememberMe);
 
     const { data, error } = await supabase.auth.signInWithPassword({
       email,
@@ -121,5 +121,30 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     }
 
     showToast.success("Password reset email sent", "Check your inbox");
+  },
+  updateProfile: async (updates) => {
+    const user = get().user;
+    if (!user?.id) return false;
+
+    const { error } = await supabase
+      .from("profiles")
+      .update(updates)
+      .eq("id", user.id);
+
+    if (error) {
+      showToast.error("Update failed", error.message);
+      return false;
+    }
+
+    set({
+      user: {
+        ...user,
+        userName: updates.full_name ?? user.userName,
+        gender: updates.gender ?? user.gender,
+      },
+    });
+
+    showToast.success("Profile updated");
+    return true;
   },
 }));

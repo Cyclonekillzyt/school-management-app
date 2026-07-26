@@ -7,7 +7,7 @@ export type User = {
   email: string | null;
   role: Role | null;
   userName: string | null;
-  gender: string | null
+  gender: string | null;
 };
 
 export type Profile = {
@@ -29,6 +29,9 @@ export type AuthState = {
   ) => Promise<void>;
   signOut: () => Promise<void>;
   getSession: () => Promise<void>;
+  updateProfile: (
+    updates: Partial<Pick<Profile, "full_name" | "gender">>,
+  ) => Promise<boolean>;
   getProfile: (userId: string) => Promise<Profile | null>;
 };
 
@@ -42,4 +45,3 @@ export type Props = {
   rightIcon?: ReactNode;
   borderColor?: string;
 };
-

@@ -4,11 +4,14 @@ import TeacherCard from "./TeacherCard";
 import { useDashboardStore } from "@/store/dashboardStore";
 import { getAvatarColor } from "@/utils/avatar";
 
-export default function TeachersSection() {
+type Props = {
+  onSeeAll?: () => void;
+};
+
+export default function TeachersSection({ onSeeAll }: Props) {
   const theme = useTheme();
 
   const uiPerformance = useDashboardStore((s) => s.teacherRanking);
-  console.log(uiPerformance, "uiPerformance");
 
   const teachers = uiPerformance.map((t) => ({
     name: t.teacher_name,
@@ -23,18 +26,11 @@ export default function TeachersSection() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text
-          style={[
-            styles.title,
-            {
-              color: theme.foreground,
-            },
-          ]}
-        >
+        <Text style={[styles.title, { color: theme.foreground }]}>
           Other Teachers Progress
         </Text>
 
-        <Pressable>
+        <Pressable onPress={onSeeAll}>
           <Text
             style={{
               color: theme.primary,
@@ -62,22 +58,18 @@ const styles = StyleSheet.create({
     marginTop: 16,
     padding: 2,
     borderRadius: 20,
-    borderWidth: 1,
     gap: 12,
-    marginBottom: 10
+    marginBottom: 10,
   },
-
   header: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
   },
-
   title: {
     fontSize: 15,
     fontWeight: "800",
   },
-
   list: {
     gap: 10,
   },

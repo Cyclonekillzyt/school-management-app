@@ -4,7 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 import DashboardScreen from "@/screens/dashboard/DashboardScreen";
 import ClassesNavigator from "@/navigation/ClassesNavigator";
 import RankingsScreen from "@/screens/rankings/RankingsScreen";
-import SettingsScreen from "@/screens/settings/SettingsScreens";
+
 
 import { useTheme } from "@/hooks/useTheme";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -12,6 +12,7 @@ import AdminHomeScreen from "@/screens/admin/AdminHomeScreen";
 
 import { TeacherTabsParamList } from "@/types/navigation.types";
 import { useAuthStore } from "@/store/authStore";
+import SettingsNavigator from "./SettingsNavigator";
 
 const Tab = createBottomTabNavigator<TeacherTabsParamList>();
 
@@ -71,7 +72,7 @@ export default function Navbar() {
         />
         <Tab.Screen name="Classes" component={ClassesNavigator} />
         <Tab.Screen name="Rankings" component={RankingsScreen} />
-        <Tab.Screen name="Settings" component={SettingsScreen} />
+        <Tab.Screen name="Settings" component={SettingsNavigator} />
       </Tab.Navigator>
     </SafeAreaView>
   );

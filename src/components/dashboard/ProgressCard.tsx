@@ -2,69 +2,51 @@ import { View, Text, StyleSheet, Pressable } from "react-native";
 import { useTheme } from "@/hooks/useTheme";
 import AssignmentDropdown from "@/components/common/Dropdown";
 import ProgressRing from "./ProgressRing";
-import { useDashboardStore } from "@/store/dashboardStore";
 
-export default function ProgressCard() {
+type ProgressItem = {
+  label: string;
+  value: number;
+  color: string;
+};
+
+type Props = {
+  onOpenSheet?: () => void;
+  items: ProgressItem[];
+  totalCompleted: number;
+};
+
+export default function ProgressCard({
+  onOpenSheet,
+  items,
+  totalCompleted,
+}: Props) {
   const theme = useTheme();
-
-  const selectedAssignment = useDashboardStore((s) => s.selectedAssignment);
-  const dashboardWorkload = useDashboardStore((s) => s.dashboardWorkload);
-
-  const selected =
-    dashboardWorkload.find(
-      (item) =>
-        selectedAssignment &&
-        item.assignment_id === selectedAssignment.assignment_id,
-    ) || null;
-
-  const totalCompleted = selected?.grand_total_completion_percentage ?? 0;
-
-  const items = selected
-    ? [
-        {
-          label: "Classwork",
-          value: selected.classwork_completion_percentage ?? 0,
-          color: theme.primary,
-        },
-        {
-          label: "Groupwork",
-          value: selected.groupwork_completion_percentage ?? 0,
-          color: theme.chart2,
-        },
-        {
-          label: "Project",
-          value: selected.projectwork_completion_percentage ?? 0,
-          color: theme.chart3,
-        },
-      ]
-    : [];
-
   return (
-    <View
-      style={[
-        styles.card,
-        {
-          backgroundColor: theme.card,
-          borderColor: theme.cardBorder,
-        },
-      ]}
-    >
-      {/* HEADER */}
-      <View style={styles.header}>
-        <Text style={[styles.title, { color: theme.foreground }]}>
-          My Progress
-        </Text>
+    <>
+      <View
+        style={[
+          styles.card,
+          {
+            backgroundColor: theme.card,
+            borderColor: theme.cardBorder,
+          },
+        ]}
+      >
+        {/* HEADER */}
+        <View style={styles.header}>
+          <Text style={[styles.title, { color: theme.foreground }]}>
+            My Progress
+          </Text>
 
-        <AssignmentDropdown styles={DropdownStyles}/>
-      </View>
+          <AssignmentDropdown styles={DropdownStyles} />
+        </View>
 
-      {/* CONTENT */}
-      <View style={styles.content}>
-        <ProgressRing progress={totalCompleted} />
+        {/* CONTENT */}
+        <View style={styles.content}>
+          <ProgressRing progress={totalCompleted} />
 
-        <View style={styles.stats}>
-          {selected &&
-            items.map((item) => (
+          <View style={styles.stats}>
+            {items.map((item) => (
               <View key={item.label}>
                 <View style={styles.row}>
                   <Text
@@ -99,21 +81,25 @@ export default function ProgressCard() {
                 </View>
               </View>
             ))}
+          </View>
         </View>
-      </View>
 
-      {/* BUTTON */}
-      <Pressable style={[styles.button, { backgroundColor: theme.primary }]}>
-        <Text
-          style={{
-            color: theme.primaryForeground,
-            fontWeight: "700",
-          }}
+        {/* BUTTON */}
+        <Pressable
+          style={[styles.button, { backgroundColor: theme.primary }]}
+          onPress={onOpenSheet}
         >
-          View Progress
-        </Text>
-      </Pressable>
-    </View>
+          <Text
+            style={{
+              color: theme.primaryForeground,
+              fontWeight: "700",
+            }}
+          >
+            View Progress
+          </Text>
+        </Pressable>
+      </View>
+    </>
   );
 }
 
