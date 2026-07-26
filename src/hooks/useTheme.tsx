@@ -5,14 +5,15 @@ import { useEffect } from "react";
 
 export function useTheme() {
   const scheme = useColorScheme();
-  const setMode = useThemeStore((s) => s.setMode);
   const mode = useThemeStore((s) => s.mode);
+  const isSystemMode = useThemeStore((s) => s.isSystemMode);
+  const setMode = useThemeStore((s) => s.setMode);
 
   useEffect(() => {
-    if (scheme === "dark" || scheme === "light") {
+    if (isSystemMode && (scheme === "dark" || scheme === "light")) {
       setMode(scheme);
     }
-  }, [scheme, setMode]);
+  }, [scheme, isSystemMode, setMode]);
 
-  return mode === "light" ? darkTheme : lightTheme;
+  return mode === "dark" ? darkTheme : lightTheme;
 }

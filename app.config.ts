@@ -9,6 +9,6 @@ export default {
       supabaseUrl: process.env.EXPO_PUBLIC_SUPABASE_URL,
       supabasePublishableKey: process.env.EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY,
     },
-    plugins: ["expo-sharing"],
+    plugins: ["expo-sharing", "expo-splash-screen"],
   },
 };
