@@ -41,4 +41,4 @@ yarn-error.*
 /android
 
 #IDE 
-.vscode/
+.vscode/supabase/.temp/
