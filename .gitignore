@@ -42,3 +42,8 @@ yarn-error.*
 
 #IDE 
 .vscode/supabase/.temp/
+
+#Supabase
+supabase/.temp/
+.vscode/
+supabase/.temp/
