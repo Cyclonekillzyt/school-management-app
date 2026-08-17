@@ -3,8 +3,10 @@ import { Ionicons } from "@expo/vector-icons";
 
 import DashboardScreen from "@/screens/dashboard/DashboardScreen";
 import ClassesNavigator from "@/navigation/ClassesNavigator";
+import AdminClassesNavigator from "@/navigation/AdminClassesNavigator";
+import AdminPeopleNavigator from "@/navigation/AdminPeopleNavigator";
 import RankingsScreen from "@/screens/rankings/RankingsScreen";
-
+import AdminPerformanceScreen from "@/screens/admin/AdminPerformanceScreen";
 
 import { useTheme } from "@/hooks/useTheme";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -24,6 +26,9 @@ function getTabIcon(routeName: keyof TeacherTabsParamList, focused: boolean) {
     case "Classes":
       return focused ? "book" : "book-outline";
 
+    case "People":
+      return focused ? "people" : "people-outline";
+
     case "Rankings":
       return focused ? "podium" : "podium-outline";
     case "Settings":
@@ -34,6 +39,7 @@ function getTabIcon(routeName: keyof TeacherTabsParamList, focused: boolean) {
 export default function Navbar() {
   const theme = useTheme();
   const user = useAuthStore((s) => s.user);
+  const isAdmin = user?.role === "admin";
 
   return (
     <SafeAreaView
@@ -68,10 +74,19 @@ export default function Navbar() {
       >
         <Tab.Screen
           name="Home"
-          component={user?.role === "admin" ? AdminHomeScreen : DashboardScreen}
+          component={isAdmin ? AdminHomeScreen : DashboardScreen}
         />
-        <Tab.Screen name="Classes" component={ClassesNavigator} />
-        <Tab.Screen name="Rankings" component={RankingsScreen} />
+        <Tab.Screen
+          name="Classes"
+          component={isAdmin ? AdminClassesNavigator : ClassesNavigator}
+        />
+        {isAdmin && (
+          <Tab.Screen name="People" component={AdminPeopleNavigator} />
+        )}
+        <Tab.Screen
+          name="Rankings"
+          component={isAdmin ? AdminPerformanceScreen : RankingsScreen}
+        />
         <Tab.Screen name="Settings" component={SettingsNavigator} />
       </Tab.Navigator>
     </SafeAreaView>

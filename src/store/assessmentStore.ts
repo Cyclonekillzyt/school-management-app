@@ -156,7 +156,6 @@ export const useAssessmentStore = create<AssessmentState>((set, get) => ({
 
   saveScores: async () => {
     const { drafts } = get();
-
     const draftList = Object.values(drafts) as AssessmentDraftWithMeta[];
 
     if (draftList.length === 0) {
@@ -171,7 +170,6 @@ export const useAssessmentStore = create<AssessmentState>((set, get) => ({
         teacher_assignment_id: d.teacher_assignment_id,
         student_id: d.student_id,
         term: d.term,
-
         classwork: d.classwork ?? null,
         groupwork: d.groupwork ?? null,
         projectwork: d.projectwork ?? null,
@@ -180,17 +178,12 @@ export const useAssessmentStore = create<AssessmentState>((set, get) => ({
       }));
 
       const { error } = await supabase.from("scores").upsert(payload, {
-        onConflict: "teacher_assignment_id,student_id",
+        onConflict: "teacher_assignment_id,student_id,term",
       });
 
       if (error) throw error;
 
-      // reset after successful save
-      set({
-        drafts: {},
-        hasUnsavedChanges: false,
-      });
-
+      set({ drafts: {}, hasUnsavedChanges: false });
       showToast.success("Saved", "Scores updated successfully");
     } catch (err: any) {
       console.log(err);
@@ -199,7 +192,6 @@ export const useAssessmentStore = create<AssessmentState>((set, get) => ({
       set({ saving: false });
     }
   },
-
   // =====================
   // RESET DRAFTS
   // =====================

@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { View, Text, Pressable } from "react-native";
 import { useDashboardStore } from "@/store/dashboardStore";
 import { useTheme } from "@/hooks/useTheme";
@@ -5,15 +6,17 @@ import { useTheme } from "@/hooks/useTheme";
 import { Ionicons } from "@expo/vector-icons";
 import { getAvatarColor, getInitials } from "@/utils/avatar";
 import { useNavigation } from "@react-navigation/native";
+import { supabase } from "@/lib/supabase";
 
 export default function ClassesList() {
   const navigation = useNavigation<any>();
   const theme = useTheme();
   const items = useDashboardStore((s) => s.dashboardWorkload);
   const activeGrade = useDashboardStore((s) => s.activeGrade);
-  const assignment = useDashboardStore((s) => s.assignments);
+  const currentTerm = useDashboardStore((s) => s.currentTerm);
 
   const filteredItems = items.filter((item) => item.class_name === activeGrade);
+
   return (
     <View
       style={{
@@ -32,16 +35,14 @@ export default function ClassesList() {
               class_name: s.class_name,
               subject_name: s.subject_name,
               academic_year: s.academic_year_name,
-              teacher_id: "", 
+              teacher_id: "",
               class_id: "",
               subject_id: "",
               academic_year_id: "",
-              term: "",
+              term: currentTerm,
             };
 
-            navigation.navigate("AssessmentEntry", {
-              assignment,
-            });
+            navigation.navigate("AssessmentEntry", { assignment });
           }}
           style={{
             backgroundColor: theme.card,

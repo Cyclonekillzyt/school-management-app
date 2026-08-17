@@ -14,17 +14,20 @@ export const useDashboardStore = create<DashboardState>((set) => ({
   teacherRanking: [],
   selectedAssignment: null,
   activeGrade: "",
+  currentTerm: "",
 
   setSelectedAssignment: (assignment) =>
     set({ selectedAssignment: assignment }),
 
   initializeDashboard: async () => {
     const user = useAuthStore.getState().user;
-     
+
     if (!user?.id) return;
 
     await useDashboardStore.getState().fetchDashboard(user.id);
-    await useRankingsStore.getState().fetchTeacherRankings({teacherId: user.id});
+    await useRankingsStore
+      .getState()
+      .fetchTeacherRankings({ teacherId: user.id });
   },
 
   setActiveGrade: (grade) => set({ activeGrade: grade }),
@@ -69,13 +72,21 @@ export const useDashboardStore = create<DashboardState>((set) => ({
 
       if (assignError) throw assignError;
 
+      const { data: term, error: termError } = await supabase
+        .from("terms")
+        .select("name")
+        .eq("is_current", true)
+        .maybeSingle();
+
+      if (termError) throw termError;
+
       set({
         performance,
         workload: workload ?? [],
         assignments: assignments ?? [],
         dashboardWorkload: dashboardWorkload ?? [],
         teacherRanking: performanceUi ?? [],
-
+        currentTerm: term?.name || "",
         activeGrade: dashboardWorkload?.[0]?.class_name,
       });
     } catch (err: any) {

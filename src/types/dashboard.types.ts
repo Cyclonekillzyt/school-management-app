@@ -59,8 +59,6 @@ export type Assignment = {
   academic_year: string;
 };
 
-
-
 export type DashboardState = {
   performance: TeacherPerformance | null;
   workload: Workload[];
@@ -72,7 +70,7 @@ export type DashboardState = {
   setSelectedAssignment: (assignment: Assignment | null) => void;
   activeGrade: string | null;
   setActiveGrade: (grade: string) => void;
-
+  currentTerm: string;
   fetchDashboard: (teacherId: string) => Promise<void>;
   initializeDashboard: () => Promise<void>;
 };

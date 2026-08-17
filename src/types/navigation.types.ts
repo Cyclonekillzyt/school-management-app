@@ -10,11 +10,11 @@ export type AuthStackParamList = {
 export type TeacherTabsParamList = {
   Home: undefined;
   Classes: undefined;
+  People: undefined;
   Rankings: undefined;
   Settings: undefined;
 };
 
-// 👇 ADD THIS
 export type TeacherStackParamList = {
   AssessmentEntry: {
     assignment: Assignment;
