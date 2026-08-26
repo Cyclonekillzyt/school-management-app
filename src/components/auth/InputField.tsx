@@ -1,8 +1,8 @@
-import {  useRef } from "react";
-import { View, Text, TextInput, StyleSheet } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
+import { TextInput as PaperTextInput } from "react-native-paper";
+
 import { useTheme } from "@/hooks/useTheme";
 import { Props } from "@/types/auth.types";
-
 
 export default function InputField({
   label,
@@ -12,16 +12,9 @@ export default function InputField({
   icon,
   secureTextEntry = false,
   rightIcon,
-  borderColor
+  borderColor,
 }: Props) {
   const theme = useTheme();
-  const focused = useRef(false);
-
-  const getBorderColor = () =>{
-    if (focused) return theme.primary;
-    if(borderColor) return borderColor;
-    return theme.border;
-  }
 
   return (
     <View style={styles.wrapper}>
@@ -36,39 +29,28 @@ export default function InputField({
         {label}
       </Text>
 
-      <View
+      <PaperTextInput
+        value={value}
+        placeholder={placeholder}
+        onChangeText={onChangeText}
+        secureTextEntry={secureTextEntry}
+        mode="outlined"
+        left={icon ? <PaperTextInput.Icon icon={() => icon} /> : undefined}
+        right={
+          rightIcon ? <PaperTextInput.Icon icon={() => rightIcon} /> : undefined
+        }
+        outlineColor={borderColor ?? theme.border}
+        activeOutlineColor={theme.primary}
+        textColor={theme.foreground}
+        placeholderTextColor={theme.mutedForeground}
         style={[
-          styles.inputContainer,
+          styles.input,
           {
-            backgroundColor: theme.input,
-            borderColor: getBorderColor(),
-            shadowColor: focused ? theme.primary : "transparent",
-            shadowOpacity: focused ? 0.2 : 0,
-            shadowRadius: 8,
+            backgroundColor: theme.background,
           },
         ]}
-      >
-        {icon}
-
-        <TextInput
-          value={value}
-          placeholder={placeholder}
-          placeholderTextColor={theme.mutedForeground}
-          onChangeText={onChangeText}
-          secureTextEntry={secureTextEntry}
-          onFocus={() => (focused.current = true)}
-          onBlur={() => {
-            focused.current = false;
-          }}
-          style={[
-            styles.input,
-            {
-              color: theme.foreground,
-            },
-          ]}
-        />
-        {rightIcon}
-      </View>
+        outlineStyle={styles.outline}
+      />
     </View>
   );
 }
@@ -81,22 +63,20 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 16,
     fontWeight: "700",
-    letterSpacing : 0.3,
-    marginBottom: 8
-  },
-
-  inputContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    paddingHorizontal: 16,
-    paddingVertical: 14,
-    borderWidth: 1.5,
-    borderRadius: 14,
-    gap: 10,
+    letterSpacing: 0.3,
+    marginBottom: 8,
   },
 
   input: {
-    flex: 1,
-    fontSize: 14,
+    fontSize: 17,
+    paddingHorizontal: 5,
+    paddingVertical: 6,
+    borderWidth: 1.5,
+    borderRadius: 14,
+  },
+
+  outline: {
+    borderRadius: 14,
+    borderWidth: 1.5,
   },
 });

@@ -9,13 +9,10 @@ import { showToast } from "@/utils/toast";
 import { usePasswordRecoveryStore } from "@/store/passwordRecoveryStore";
 import BackButton from "@/components/auth/BackButton";
 
-
-
 export default function ResetPasswordScreen() {
   const theme = useTheme();
 
   const [email, setEmail] = useState("");
-
 
   const sendResetCode = usePasswordRecoveryStore((s) => s.sendResetCode);
 
@@ -28,11 +25,8 @@ export default function ResetPasswordScreen() {
     }
 
     const success = await sendResetCode(email);
-
-
   };
 
-  
   return (
     <View
       style={[
@@ -79,7 +73,12 @@ export default function ResetPasswordScreen() {
         }
       />
 
-      <LoginButton onPress={handleReset} disabled={loading} />
+      <LoginButton
+        onPress={handleReset}
+        disabled={loading}
+        text={"Reset Password"}
+        loaderText={"Sending reset code..."}
+      />
 
       <Text
         style={[
