@@ -28,6 +28,7 @@
     "react-native-chart-kit": "^6.12.3",
     "react-native-circular-progress": "^1.4.1",
     "react-native-gesture-handler": "~2.31.1",
+    "react-native-paper": "^5.15.3",
     "react-native-reanimated": "4.3.1",
     "react-native-safe-area-context": "~5.7.0",
     "react-native-screens": "4.25.2",
