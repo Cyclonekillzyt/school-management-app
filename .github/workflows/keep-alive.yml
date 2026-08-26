@@ -12,9 +12,9 @@ jobs:
       - name: Ping Supabase REST API
         run: |
           response=$(curl -s -o /dev/null -w "%{http_code}" \
-            "${{ secrets.SUPABASE_URL }}/rest/v1/profiles?select=id&limit=1" \
-            -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
-            -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}")
+            "${{ secrets.EXPO_PUBLIC_SUPABASE_URL }}/rest/v1/profiles?select=id&limit=1" \
+            -H "apikey: ${{ secrets.EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY }}" \
+            -H "Authorization: Bearer ${{ secrets.EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY }}")
           echo "Response code: $response"
           if [ "$response" -ge 400 ]; then
             echo "Ping failed with status $response"
