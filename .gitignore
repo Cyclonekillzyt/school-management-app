@@ -47,3 +47,7 @@ yarn-error.*
 supabase/.temp/
 .vscode/
 supabase/.temp/
+
+# EAS local credentials
+credentials.json
+credentials/
